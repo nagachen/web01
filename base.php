@@ -122,6 +122,6 @@ function q($sql){
     $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77","root","");
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
-$total = new DB('total');
-// dd($total->find('['id'=>1]'));
-// dd($total->min('id'));
+$Total = new DB('total');
+$Bottom = new DB('bottom');
+
