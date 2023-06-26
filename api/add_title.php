@@ -11,5 +11,5 @@ if(!empty($_FILES['img']['tmp_name'])){
 $data['text']=$_POST['text'];
 $data['sh']=0;
 $Title->save($data);
-
+to("../backend.php?do=title");
 ?>

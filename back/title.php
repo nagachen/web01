@@ -10,6 +10,20 @@
 									<td width="7%">刪除</td>
 									<td></td>
 								</tr>
+                                <?php
+                                    $rows=$Title->all();
+                                    foreach($rows as $row){                      
+                                ?>
+                                <tr>
+                                <td><img src="./upload/<?=$row['img'];?>"style="width:300px; height:30px;"></td>
+                                <td><input type="text" value="<?=$row['text']?>"></td>
+                                <td><input type="radio" name="sh" value="<?=$row['sh'];?>"></td>
+                                <td><input type="checkbox" name="del" vlaue="<?=$row['id'];?>"></td>
+                                <td><input type="button" value="更新圖片"></td>
+                                </tr>
+                                <?php
+                                    }
+                                    ?>
 							</tbody>
 						</table>
 						<table style="margin-top:40px; width:70%;">
