@@ -1,6 +1,6 @@
 <h3>新增標題區圖片</h3>
 <hr>
-<form action="" method="post" enctype="multipart/form-data">
+<form action="./api/add_title.php" method="post" enctype="multipart/form-data">
 <table>
     <tr>
         <td>
@@ -15,7 +15,7 @@
             標題區替代文字:
         </td>
         <td>
-            <input type='text'>
+            <input type='text' name='text'>
         </td>
     </tr>
     <tr>
