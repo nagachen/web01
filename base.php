@@ -2,7 +2,7 @@
 
 class DB
 {
-    protected $dsn = "mysql:lost=localhost;charset=utf8;dbname=db01";
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db01";
     protected $table;
     protected $user = "root";
     protected $pw = "";
@@ -75,11 +75,40 @@ class DB
     }
 
     function count(...$arg){
-        
+        $result=$this->all(...$arg);
+        return count($result);
     }
-    function math($math,$cols,...$arg){
+    function math($math,$col,...$arg){
+        $sql="select $math($col) from $this->table";
+        if(!empty($arg)){
+            foreach($arg as $key=>$value){
+                $tmp[]="`$key` = '$value'";
+            }
+            $sql=$sql . " where ".join("&&",$tmp);
+        }else{
+            $sql=$sql . $arg[0];
+        }
+        if(isset($arg[1])){
+            $sql=$sql.$arg[1];
+        }
+        return $this->pdo->query($sql)->fetchColumn();
+    }
 
+    function sum($col,...$arg){
+        return $this->math('sum',$col,...$arg);
     }
+
+    function max($col,...$arg){
+        return $this->math('max',$col,...$arg);
+    }
+    function min($col,...$arg){
+        return $this->math('min',$col,...$arg);
+    }
+    function avg($col,...$arg){
+        return $this->math('avg',$col,...$arg);
+    }
+    
+
 
 }
 function dd($array){
@@ -88,4 +117,5 @@ function dd($array){
     echo "</pre>";
 }
 $total = new DB('total');
-dd($total->find(['id'=>1]));
+// dd($total->find('['id'=>1]'));
+dd($total->min('id'));
