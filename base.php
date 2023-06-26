@@ -33,16 +33,14 @@ class DB
     function find($arg)
     {
         $sql = "select * from $this->table";
-        if (is_array($arg[0])) {
-            foreach ($arg[0] as $key => $value) {
+        if (is_array($arg)) {
+            foreach ($arg as $key => $value) {
                 $tmp[] = "`$key` = '$value'";
             }
-            $sql = $sql . "where" . join("&&", $tmp);
+            $sql = $sql . " where" . join("&&", $tmp);
         } else {
-            $sql = $sql . "where `id` = '$arg'";
+            $sql = $sql . " where `id` = '$arg'";
         }
-
-
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
     function save($arg){
@@ -116,6 +114,14 @@ function dd($array){
     print_r($array);
     echo "</pre>";
 }
+
+function to($url){
+    header("location:".$url);
+}
+function q($sql){
+    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77","root","");
+    return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 $total = new DB('total');
 // dd($total->find('['id'=>1]'));
-dd($total->min('id'));
+// dd($total->min('id'));
