@@ -94,7 +94,8 @@ class DB{
             $sql="insert into  $this->table (`".join("`,`",$cols)."`) 
                                       values('".join("','",$arg)."')";
         }
-
+        echo $sql;
+        echo "<br>";
         return $this->pdo->exec($sql);
     }
 
