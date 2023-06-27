@@ -1,24 +1,24 @@
 <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
-    <p class="t cent botli"><?=$Title->header;?></p>
-    <form method="post" target="back" action="?do=tii">
+    <p class="t cent botli"><?=$Image->header;?></p>
+    <form method="post" target="back" action="./api/update.php">
         <table width="100%">
             <tbody>
                 <tr class="yel">
-                    <td width="45%">網站標題</td>
-                    <td width="23%">替代文字</td>
+                    <td width="68%">校園映像資料圖片</td>
+
                     <td width="7%">顯示</td>
                     <td width="7%">刪除</td>
                     <td></td>
                 </tr>
                 <?php
-                $rows = $Title->all();
+                $rows = $Image->all();
                 foreach ($rows as $row) {
                 ?>
                     <tr>
-                        <td><img src="./upload/<?=$row['img'];?>" style="width:300px;height:30px"></td>
-                        <td><?= $row['text']; ?></td>
-                        <td> <input type="checkbox" name="sh" value="<?= $row['id']; ?>"></td>
-                        <td> <input type="checkbox" name="del" value="<?= $row['id']; ?>"></td>
+                        <td><img src="./upload/<?=$row['img'];?>" style="width:300px;height:80px"></td>
+                       
+                        <td> <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?=($row['sh']==1)?'checked':'';?>></td>
+                        <td> <input type="checkbox" name="del[]" value="<?= $row['id']; ?>"></td>
                         <td></td>
                     </tr>
                 <?php
@@ -29,7 +29,8 @@
         <table style="margin-top:40px; width:70%;">
             <tbody>
                 <tr>
-                    <td width="200px"><input type="button" onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;./modal/ad.php&#39;)" value="新增動態文字廣告"></td>
+                    <input type="hidden" name="table" value="image">
+                    <td width="200px"><input type="button" onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;./modal/image.php&#39;)" value="新增校園映像圖片"></td>
                     <td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
                 </tr>
             </tbody>

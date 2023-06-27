@@ -94,8 +94,7 @@ class DB{
             $sql="insert into  $this->table (`".join("`,`",$cols)."`) 
                                       values('".join("','",$arg)."')";
         }
-        echo $sql;
-        echo "<br>";
+        
         return $this->pdo->exec($sql);
     }
 
@@ -267,3 +266,4 @@ $Bottom=new Bottom;
 $Title=new Title;
 $Ad=new Ad;
 $Image=new Image;
+$Mvim=new Mvim;
