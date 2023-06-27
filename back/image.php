@@ -1,20 +1,21 @@
 <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
-    <p class="t cent botli"><?=$Ad->header;?></p>
+    <p class="t cent botli"><?=$Image->header['image'];?></p>
     <form method="post" target="back" action="?do=tii">
         <table width="100%">
             <tbody>
                 <tr class="yel">
-                    <td width="45%">動態文字廣告</td>
-
+                    <td width="45%">網站標題</td>
+                    <td width="23%">替代文字</td>
                     <td width="7%">顯示</td>
                     <td width="7%">刪除</td>
                     <td></td>
                 </tr>
                 <?php
-                $rows = $Ad->all();
+                $rows = $Title->all();
                 foreach ($rows as $row) {
                 ?>
                     <tr>
+                        <td><img src="./upload/<?=$row['img'];?>" style="width:300px;height:30px"></td>
                         <td><?= $row['text']; ?></td>
                         <td> <input type="checkbox" name="sh" value="<?= $row['id']; ?>"></td>
                         <td> <input type="checkbox" name="del" value="<?= $row['id']; ?>"></td>

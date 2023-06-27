@@ -203,7 +203,22 @@ function q($sql){
     $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77",'root','');
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+class Ad extends DB{
+    public $header='動態文字廣告管理';
+    public function __construct(){
+        $this->pdo=new PDO($this->dsn,$this->user,$this->pw);
+        $this->table='ad';
+    }
+}
 
+class Title extends DB{
+    public $header='網站標題管理';
+
+    public function __construct(){
+        $this->pdo=new PDO($this->dsn,$this->user,$this->pw);
+        $this->table='title';
+    }
+}
 
 
 //在base.php中先宣告一個資料表的變數出來
@@ -212,5 +227,6 @@ function q($sql){
 //使用首字大寫是為了方便識別這個變數是物件
 $Total=new DB('total');
 $Bottom=new DB("bottom");
-$Title=new DB("title");
-$Ad=new DB("ad");
+$Title=new Title;
+$Ad=new Ad;
+$Image=new DB("image");
