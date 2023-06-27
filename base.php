@@ -120,7 +120,7 @@ class DB{
             }else{
                 $sql=$sql . $arg;
             }
-            echo $sql;
+            
         return $this->pdo->exec($sql);
     }
 

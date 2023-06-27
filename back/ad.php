@@ -1,6 +1,6 @@
 <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
     <p class="t cent botli"><?=$Ad->header;?></p>
-    <form method="post" target="back" action="?do=tii">
+    <form method="post" target="back" action="./api/update_ad.php">
         <table width="100%">
             <tbody>
                 <tr class="yel">
@@ -15,9 +15,9 @@
                 foreach ($rows as $row) {
                 ?>
                     <tr>
-                        <td><?= $row['text']; ?></td>
-                        <td> <input type="checkbox" name="sh" value="<?= $row['id']; ?>"></td>
-                        <td> <input type="checkbox" name="del" value="<?= $row['id']; ?>"></td>
+                        <td><input type="input" name="text[<?=$row['id'];?>]" value="<?= $row['text']; ?>" style=width:95%></td>
+                        <td> <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>"></td>
+                        <td> <input type="checkbox" name="del[]" value="<?= $row['id']; ?>"></td>
                         <td></td>
                     </tr>
                 <?php
