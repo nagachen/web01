@@ -8,6 +8,7 @@ class DB
     protected $pw = "";
     protected $pdo;
     protected $add_header = '';
+    protected $header = '';
 
     /**
      * 建構式
@@ -18,7 +19,9 @@ class DB
         $this->pdo = new PDO($this->dsn, $this->user, $this->pw);
         $this->table = $table;
     }
-
+    /**
+     * 彈出視窗的共同模板
+     */
     public function modal($slot)
     {
 ?>
@@ -39,6 +42,20 @@ class DB
             </table>
         </form>
     <?php
+    }
+    /**
+     * 後台管理畫面的模板
+     */
+    function backend($slot)
+    {
+    ?>
+        <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
+            <p class="t cent botli"><?= $this->header; ?>管理</p>
+            <form method="post" target="back" action="./api/update.php">
+                <?php include $slot; ?>
+            </form>
+        </div>
+<?php
     }
 
     /**
@@ -244,7 +261,7 @@ function q($sql)
 }
 class Ad extends DB
 {
-    public $header = '動態文字廣告管理';
+    public $header = '動態文字廣告';
     protected $add_header = '新增動態文字廣告';
     public function __construct()
     {
@@ -253,18 +270,21 @@ class Ad extends DB
     }
     public function add_form()
     {
-    $this->modal("
+        $this->modal("
     <tr>
         <td><?= $this->add_header; ?></td>
         <td><input type='text' name='text'></td>
     </tr>
 ");
     }
+    public function list(){
+        $this->backend("./view/ad.php");
+    }
 }
 
 class Title extends DB
 {
-    public $header = '網站標題管理';
+    public $header = '網站標題';
     protected $add_header = "新增標題區圖片";
 
     public function __construct()
@@ -273,7 +293,8 @@ class Title extends DB
     }
     public function add_form()
     {
-    $this->modal("<tr>
+        $this->modal(
+            "<tr>
         <td>標題區圖片:</td>
         <td><input type='file' name='img'></td>
     </tr>
@@ -281,12 +302,15 @@ class Title extends DB
         <td>標題區替代文字:</td>
         <td><input type='text' name='text'></td>
     </tr>"
-    );
+        );
+    }
+    public function list(){
+        $this->backend("./view/title.php");
     }
 }
 class Mvim extends DB
 {
-    public $header = '動畫圖片管理';
+    public $header = '動畫圖片';
     protected $add_header = "新增動畫圖片";
 
     public function __construct()
@@ -307,10 +331,13 @@ class Mvim extends DB
         </tr>
     ");
     }
+    public function list(){
+        $this->backend("./view/mvim.php");
+    }
 }
 class Image extends DB
 {
-    public $header = "校園映像資料管理";
+    public $header = "校園映像";
     protected $add_header = "新增校園映像資料圖片";
 
 
@@ -333,10 +360,13 @@ class Image extends DB
         </tr>
     ");
     }
+    public function list(){
+        $this->backend("./view/image.php");
+    }
 }
 class News extends DB
 {
-    public $header = "最新消息資料管理";
+    public $header = "最新消息資料";
     protected $add_header = "新增最新消息資料";
 
 
@@ -357,10 +387,13 @@ class News extends DB
         </tr>
     ");
     }
+    public function list(){
+        $this->backend("./view/news.php");
+    }
 }
 class Total extends DB
 {
-    public $header = "進站人數管理";
+    public $header = "進站人數";
 
     public function __construct()
     {
@@ -369,7 +402,7 @@ class Total extends DB
 }
 class Bottom extends DB
 {
-    public $header = "頁尾版權管理";
+    public $header = "頁尾版權";
 
     public function __construct()
     {
@@ -378,7 +411,7 @@ class Bottom extends DB
 }
 class Admin extends DB
 {
-    public $header = '管理者帳號管理';
+    public $header = '管理者';
     protected $add_header = "新增管理員";
     public function __construct()
     {
@@ -386,7 +419,7 @@ class Admin extends DB
     }
     public function add_form()
     {
-    $this->modal("
+        $this->modal("
     <tr>
         <td>
             帳號:
@@ -412,10 +445,13 @@ class Admin extends DB
     </tr>
 ");
     }
+    public function list(){
+        $this->backend("./view/admin.php");
+    }
 }
 class Menu extends DB
 {
-    public $header = '選單管理';
+    public $header = '選單';
     protected $add_header = "新增主選單";
 
     public function __construct()
@@ -424,7 +460,7 @@ class Menu extends DB
     }
     public function add_form()
     {
-    $this->modal("
+        $this->modal("
     <tr>
         <td>
             主選單名稱:
@@ -442,6 +478,9 @@ class Menu extends DB
         </td>
     </tr>
 ");
+    }
+    public function list(){
+        $this->backend("./view/menu.php");
     }
 }
 //在base.php中先宣告一個資料表的變數出來
