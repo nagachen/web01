@@ -94,7 +94,7 @@ class DB{
             $sql="insert into  $this->table (`".join("`,`",$cols)."`) 
                                       values('".join("','",$arg)."')";
         }
-        
+        // echo "$sql";
         return $this->pdo->exec($sql);
     }
 
@@ -257,6 +257,13 @@ class Bottom extends DB{
         parent::__construct('bottom');
     }
 }
+class Admin extends DB{
+    public $header="管理者帳號管理";
+
+    public function __construct(){
+        parent::__construct('admin');
+    }
+}
 //在base.php中先宣告一個資料表的變數出來
 //因為base.php會被include到主要的index.php及backend.php中
 //所以可以確保每個頁面都能使用到這些變數
@@ -268,3 +275,4 @@ $Ad=new Ad;
 $Image=new Image;
 $Mvim=new Mvim;
 $News=new News;
+$Admin=new Admin;

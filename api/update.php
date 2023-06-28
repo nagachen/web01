@@ -4,6 +4,7 @@ include_once "../base.php";
 //先刪再改
 //使用可變變數和table導入正確的class
 dd($_POST);
+echo"<hr>";
 $table = $_POST['table'];
 $db = ucfirst($table);
 if(isset($_POST['text'])){
@@ -14,9 +15,10 @@ if(isset($_POST['text'])){
 }
 
 foreach ($rows as $id => $text) {
+    dd($id);
     if (!empty($_POST['del']) && in_array($id, $_POST['del'])) {
         $$db->del($id);
-       
+       echo"212";
     } else {
         $row = $$db->find($id);
         switch($table){
@@ -37,4 +39,4 @@ foreach ($rows as $id => $text) {
         $$db->save($row);
     }
 }
-  to("../backend.php?do=$table");
+//    to("../backend.php?do=$table");
