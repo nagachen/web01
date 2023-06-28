@@ -267,3 +267,4 @@ $Title=new Title;
 $Ad=new Ad;
 $Image=new Image;
 $Mvim=new Mvim;
+$News=new News;
