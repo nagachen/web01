@@ -208,18 +208,40 @@ function q($sql){
 }
 class Ad extends DB{
     public $header='動態文字廣告管理';
+    public $add_header='新增動態文字廣告';
     public function __construct(){
         
         parent::__construct('ad');
+    }
+    public function add_form(){
+        ?>
+        <tr>
+            <td><?=$this->add_header;?></td>
+            <td><input type="text" name='text'></td>
+        </tr>
+        <?php
     }
 }
 
 class Title extends DB{
     public $header='網站標題管理';
+    public $add_header="新增標題區圖片";
 
     public function __construct(){
         parent::__construct('title');
         
+    }
+    public function add_form(){
+        ?>
+        <tr>
+            <td>標題區圖片:</td>
+            <td><input type="file" name='img'></td>
+        </tr>
+        <tr>
+            <td>標題區替代文字:</td>
+            <td><input type="text" name='text'></td>
+        </tr>
+        <?php
     }
 }
 class Mvim extends DB{
@@ -258,7 +280,7 @@ class Bottom extends DB{
     }
 }
 class Admin extends DB{
-    public $header="管理者帳號管理";
+    public $header='管理者帳號管理';
 
     public function __construct(){
         parent::__construct('admin');
