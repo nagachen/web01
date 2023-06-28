@@ -1,11 +1,13 @@
 <?php
 
-class DB{
-    protected $dsn="mysql:host=localhost;charset=utf8;dbname=db01";
+class DB
+{
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db01";
     protected $table;
-    protected $user="root";
-    protected $pw="";
+    protected $user = "root";
+    protected $pw = "";
     protected $pdo;
+    protected $add_header = '';
 
     /**
      * 建構式
@@ -13,8 +15,30 @@ class DB{
      */
     function __construct($table)
     {
-        $this->pdo=new PDO($this->dsn,$this->user,$this->pw);
-        $this->table=$table;
+        $this->pdo = new PDO($this->dsn, $this->user, $this->pw);
+        $this->table = $table;
+    }
+
+    public function modal($slot)
+    {
+?>
+        <h3><?= $this->add_header; ?></h3>
+        <hr>
+        <form action="./api/add.php" method="post" enctype="multipart/form-data">
+            <table>
+                <?= $slot; ?>
+                <tr>
+                    <td>
+                        <input type="hidden" name='table' value='<?= $this->table; ?>'>
+                        <input type='submit' value="新增">
+
+                        <input type='reset' value="重置">
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    <?php
     }
 
     /**
@@ -25,23 +49,24 @@ class DB{
      * all($array,$sql) 帶入陣列及其他sql字串，表示要撈取符合陣列條件及其它限制條件的資料
      * all($sql) 帶入一個sql字串，表示要撈取符合sql字串條件的資料
      */
-    function all(...$arg){
-        $sql="select * from $this->table ";
+    function all(...$arg)
+    {
+        $sql = "select * from $this->table ";
 
-        if(!empty($arg)){
-            if(is_array($arg[0])){
+        if (!empty($arg)) {
+            if (is_array($arg[0])) {
 
-                foreach($arg[0] as $key => $value){
-                    $tmp[]="`$key`='$value'";
+                foreach ($arg[0] as $key => $value) {
+                    $tmp[] = "`$key`='$value'";
                 }
 
-                $sql=$sql . " where " . join(" && " ,$tmp);
-            }else{
-                $sql=$sql . $arg[0];
+                $sql = $sql . " where " . join(" && ", $tmp);
+            } else {
+                $sql = $sql . $arg[0];
             }
 
-            if(isset($arg[1])){
-                $sql=$sql . $arg[1];
+            if (isset($arg[1])) {
+                $sql = $sql . $arg[1];
             }
         }
 
@@ -54,20 +79,21 @@ class DB{
      * $arg 如果是陣列，表示要撈取符合陣列條件的資料
      * $arg 如果是id，表示要撈取指定id的資料
      */
-    function find($arg){
-        $sql="select * from $this->table ";
+    function find($arg)
+    {
+        $sql = "select * from $this->table ";
 
-            if(is_array($arg)){
+        if (is_array($arg)) {
 
-                foreach($arg as $key => $value){
-                    $tmp[]="`$key`='$value'";
-                }
-
-                $sql=$sql . " where " . join(" && " ,$tmp);
-            }else{
-
-                $sql=$sql . " where `id`='$arg'";
+            foreach ($arg as $key => $value) {
+                $tmp[] = "`$key`='$value'";
             }
+
+            $sql = $sql . " where " . join(" && ", $tmp);
+        } else {
+
+            $sql = $sql . " where `id`='$arg'";
+        }
 
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
@@ -78,23 +104,24 @@ class DB{
      * 如果$arg陣列中有id這個項目,表示要進行更新資料
      * 如果$arg陣列中沒有id這個項目，表示要進行新增資料
      */
-    function save($arg){
-        if(isset($arg['id'])){
+    function save($arg)
+    {
+        if (isset($arg['id'])) {
             //update
-            foreach($arg as $key => $value){
-                $tmp[]="`$key`='$value'";
+            foreach ($arg as $key => $value) {
+                $tmp[] = "`$key`='$value'";
             }
 
-            $sql="update $this->table set ".join(',',$tmp)." where `id`='{$arg['id']}'";
-        }else{
+            $sql = "update $this->table set " . join(',', $tmp) . " where `id`='{$arg['id']}'";
+        } else {
             //insert
 
-            $cols=array_keys($arg);
+            $cols = array_keys($arg);
 
-            $sql="insert into  $this->table (`".join("`,`",$cols)."`) 
-                                      values('".join("','",$arg)."')";
+            $sql = "insert into  $this->table (`" . join("`,`", $cols) . "`) 
+                                      values('" . join("','", $arg) . "')";
         }
-         echo "$sql";
+        echo "$sql";
         return $this->pdo->exec($sql);
     }
 
@@ -102,25 +129,26 @@ class DB{
      * 刪除資料的方法
      * 限制只能帶入一個參數
      * $arg 如果是陣列，表示要刪除符合陣列條件的資料(可能是多筆刪除)
-      * $arg 如果是數字，表示要刪除指定id的資料
+     * $arg 如果是數字，表示要刪除指定id的資料
      * $arg 如果是字串，表示要刪除指定SQL條件語法的資料
      */
-    function del($arg){
-        $sql="delete from $this->table ";
+    function del($arg)
+    {
+        $sql = "delete from $this->table ";
 
-            if(is_array($arg)){
+        if (is_array($arg)) {
 
-                foreach($arg as  $key => $value){
-                    $tmp[]="`$key`='$value'";
-                }
-
-                $sql=$sql . " where " . join(" && " ,$tmp);
-            }else if(is_numeric($arg)){
-                $sql=$sql . "where `id`=" .$arg;
-            }else{
-                $sql=$sql . $arg;
+            foreach ($arg as  $key => $value) {
+                $tmp[] = "`$key`='$value'";
             }
-            echo"$sql";
+
+            $sql = $sql . " where " . join(" && ", $tmp);
+        } else if (is_numeric($arg)) {
+            $sql = $sql . "where `id`=" . $arg;
+        } else {
+            $sql = $sql . $arg;
+        }
+        echo "$sql";
         return $this->pdo->exec($sql);
     }
 
@@ -129,8 +157,9 @@ class DB{
      * 利用原有的all()方法來取得符合條件的資料
      * 計算all()所回傳的陣列內容筆數即為資料筆數
      */
-    function count(...$arg){
-        $result=$this->all(...$arg);
+    function count(...$arg)
+    {
+        $result = $this->all(...$arg);
         return count($result);
     }
 
@@ -138,55 +167,60 @@ class DB{
      * 利用原有的math()方法，
      * 用來簡化方法的應用，但又不影響原本math()的其它彈性應用 
      */
-    function sum($col,...$arg){
-        return $this->math('sum',$col,...$arg);
+    function sum($col, ...$arg)
+    {
+        return $this->math('sum', $col, ...$arg);
     }
 
-    function max($col,...$arg){
-        return $this->math('max',$col,...$arg);
+    function max($col, ...$arg)
+    {
+        return $this->math('max', $col, ...$arg);
     }
 
-    function min($col,...$arg){
-        return $this->math('min',$col,...$arg);
+    function min($col, ...$arg)
+    {
+        return $this->math('min', $col, ...$arg);
     }
 
-    function avg($col,...$arg){
-        return $this->math('avg',$col,...$arg);
+    function avg($col, ...$arg)
+    {
+        return $this->math('avg', $col, ...$arg);
     }
 
     /**
      * 聚合函數的方法
      * 帶入個聚合函數的名稱及指定要計算的欄位，即可計算結果
      */
-    function math($math,$col,...$arg){
-        $sql="select $math($col) from $this->table ";
+    function math($math, $col, ...$arg)
+    {
+        $sql = "select $math($col) from $this->table ";
 
-        if(!empty($arg)){
-            if(is_array($arg[0])){
+        if (!empty($arg)) {
+            if (is_array($arg[0])) {
 
-                foreach($arg[0] as $key => $value){
-                    $tmp[]="`$key`='$value'";
+                foreach ($arg[0] as $key => $value) {
+                    $tmp[] = "`$key`='$value'";
                 }
 
-                $sql=$sql . " where " . join(" && " ,$tmp);
-            }else{
-                $sql=$sql . $arg[0];
+                $sql = $sql . " where " . join(" && ", $tmp);
+            } else {
+                $sql = $sql . $arg[0];
             }
 
-            if(isset($arg[1])){
-                $sql=$sql . $arg[1];
+            if (isset($arg[1])) {
+                $sql = $sql . $arg[1];
             }
         }
 
         return $this->pdo->query($sql)->fetchColumn();
     }
-
 }
 
 /**
  * 用來在頁面上顯示格式化的陣列內容
  */
-function dd($array){
+function dd($array)
+{
     echo "<pre>";
     print_r($array);
     echo "</pre>";
@@ -195,208 +229,231 @@ function dd($array){
 /**
  * 簡化header()指令的使用
  */
-function to($url){
- header("location:".$url);
+function to($url)
+{
+    header("location:" . $url);
 }
 
 /**
  * 獨立的sql指令執行，用來處理少數較為複雜的語句，比如聯表查詢或是子查詢的語法
  */
-function q($sql){
-    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77",'root','');
+function q($sql)
+{
+    $pdo = new PDO("mysql:host=localhost;charset=utf8;dbname=db77", 'root', '');
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
-class Ad extends DB{
-    public $header='動態文字廣告管理';
-    public $add_header='新增動態文字廣告';
-    public function __construct(){
-        
+class Ad extends DB
+{
+    public $header = '動態文字廣告管理';
+    protected $add_header = '新增動態文字廣告';
+    public function __construct()
+    {
+
         parent::__construct('ad');
     }
-    public function add_form(){
-        ?>
+    public function add_form()
+    {
+    ?>
         <tr>
-            <td><?=$this->add_header;?></td>
+            <td><?= $this->add_header; ?></td>
             <td><input type="text" name='text'></td>
         </tr>
-        <?php
+    <?php
     }
 }
 
-class Title extends DB{
-    public $header='網站標題管理';
-    public $add_header="新增標題區圖片";
+class Title extends DB
+{
+    public $header = '網站標題管理';
+    protected $add_header = "新增標題區圖片";
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('title');
-        
     }
-    public function add_form(){
-        ?>
-        <tr>
-            <td>標題區圖片:</td>
-            <td><input type="file" name='img'></td>
-        </tr>
-        <tr>
-            <td>標題區替代文字:</td>
-            <td><input type="text" name='text'></td>
-        </tr>
-        <?php
+    public function add_form()
+    {
+    $this->modal("<tr>
+        <td>標題區圖片:</td>
+        <td><input type='file' name='img'></td>
+    </tr>
+    <tr>
+        <td>標題區替代文字:</td>
+        <td><input type='text' name='text'></td>
+    </tr>"
+    );
     }
 }
-class Mvim extends DB{
-    public $header='動畫圖片管理';
-    public $add_header="新增動畫圖片";
+class Mvim extends DB
+{
+    public $header = '動畫圖片管理';
+    protected $add_header = "新增動畫圖片";
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('mvim');
     }
-   
-    public function add_form(){
-        ?>
+
+    public function add_form()
+    {
+    ?>
         <tr>
-        <td>
-            動畫圖片:
-        </td>
-        <td>
-            <input type='file' name='img'>
-        </td>
-    </tr>
+            <td>
+                動畫圖片:
+            </td>
+            <td>
+                <input type='file' name='img'>
+            </td>
+        </tr>
     <?php
+    }
 }
-}
-class Image extends DB{
-    public $header="校園映像資料管理";
-    public $add_header="新增校園映像資料圖片";
+class Image extends DB
+{
+    public $header = "校園映像資料管理";
+    protected $add_header = "新增校園映像資料圖片";
 
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('image');
     }
-    public function add_form(){
-        ?>
+    public function add_form()
+    {
+    ?>
         <tr>
-        <td>
-            校園映像資料圖片:
-        </td>
-        <td>
-            <input type='file' name='img'>
-            
-        </td>
+            <td>
+                校園映像資料圖片:
+            </td>
+            <td>
+                <input type='file' name='img'>
 
-    </tr>
+            </td>
+
+        </tr>
     <?php
     }
 }
-class News extends DB{
-    public $header="最新消息資料管理";
-    public $add_header="新增最新消息資料";
+class News extends DB
+{
+    public $header = "最新消息資料管理";
+    protected $add_header = "新增最新消息資料";
 
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('news');
     }
-    public function add_form(){
-        ?>
+    public function add_form()
+    {
+    ?>
         <tr>
-        <td>
-            最新消息資料:
-        </td>
-        <td>
-            <textarea name="text" style="width:400px;height:200px"></textarea>
-        </td>
-    </tr>
-        <?php
+            <td>
+                最新消息資料:
+            </td>
+            <td>
+                <textarea name="text" style="width:400px;height:200px"></textarea>
+            </td>
+        </tr>
+    <?php
     }
 }
-class Total extends DB{
-    public $header="進站人數管理";
+class Total extends DB
+{
+    public $header = "進站人數管理";
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('total');
     }
 }
-class Bottom extends DB{
-    public $header="頁尾版權管理";
+class Bottom extends DB
+{
+    public $header = "頁尾版權管理";
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('bottom');
     }
 }
-class Admin extends DB{
-    public $header='管理者帳號管理';
-    public $add_header="新增管理員";
-    public function __construct(){
+class Admin extends DB
+{
+    public $header = '管理者帳號管理';
+    protected $add_header = "新增管理員";
+    public function __construct()
+    {
         parent::__construct('admin');
     }
     public function add_form()
     {
-        ?>
-            <tr>
+    ?>
+        <tr>
+            <td>
+                帳號:
+            </td>
+            <td>
+                <input type="text" name="acc">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                密碼:
+            </td>
+            <td>
+                <input type="password" name="pw">
+            </td>
+        </tr>
         <td>
-            帳號:
-        </td>
-        <td>
-            <input type="text" name="acc" >
-        </td>
-    </tr>
-    <tr>
-    <td>
-            密碼:
-        </td>
-        <td>
-            <input type="password" name="pw" >
-        </td>
-    </tr>
-    <td>
             確認密碼:
         </td>
         <td>
-            <input type="password" name="pw2" >
+            <input type="password" name="pw2">
         </td>
-    </tr>
-        <?php
+        </tr>
+    <?php
     }
-
 }
-class Menu extends DB{
-    public $header='選單管理';
-    public $add_header="新增主選單";
+class Menu extends DB
+{
+    public $header = '選單管理';
+    protected $add_header = "新增主選單";
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct('menu');
     }
-    public function add_form(){
-        ?>
+    public function add_form()
+    {
+    ?>
         <tr>
-        <td>
-            主選單名稱:
-        </td>
-        <td>
-            <input type='text' name='text'>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            選單連結網址:
-        </td>
-        <td>
-            <input type='text' name='href'>
-        </td>
-    </tr>
-        <?php
+            <td>
+                主選單名稱:
+            </td>
+            <td>
+                <input type='text' name='text'>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                選單連結網址:
+            </td>
+            <td>
+                <input type='text' name='href'>
+            </td>
+        </tr>
+<?php
     }
 }
 //在base.php中先宣告一個資料表的變數出來
 //因為base.php會被include到主要的index.php及backend.php中
 //所以可以確保每個頁面都能使用到這些變數
 //使用首字大寫是為了方便識別這個變數是物件
-$Total=new Total;
-$Bottom=new Bottom;
-$Title=new Title;
-$Ad=new Ad;
-$Image=new Image;
-$Mvim=new Mvim;
-$News=new News;
-$Admin=new Admin;
-$Menu=new Menu;
+$Total = new Total;
+$Bottom = new Bottom;
+$Title = new Title;
+$Ad = new Ad;
+$Image = new Image;
+$Mvim = new Mvim;
+$News = new News;
+$Admin = new Admin;
+$Menu = new Menu;
