@@ -253,12 +253,12 @@ class Ad extends DB
     }
     public function add_form()
     {
-    ?>
-        <tr>
-            <td><?= $this->add_header; ?></td>
-            <td><input type="text" name='text'></td>
-        </tr>
-    <?php
+    $this->modal("
+    <tr>
+        <td><?= $this->add_header; ?></td>
+        <td><input type='text' name='text'></td>
+    </tr>
+");
     }
 }
 
@@ -296,7 +296,7 @@ class Mvim extends DB
 
     public function add_form()
     {
-    ?>
+        $this->modal("
         <tr>
             <td>
                 動畫圖片:
@@ -305,7 +305,7 @@ class Mvim extends DB
                 <input type='file' name='img'>
             </td>
         </tr>
-    <?php
+    ");
     }
 }
 class Image extends DB
@@ -320,7 +320,7 @@ class Image extends DB
     }
     public function add_form()
     {
-    ?>
+        $this->modal("
         <tr>
             <td>
                 校園映像資料圖片:
@@ -331,7 +331,7 @@ class Image extends DB
             </td>
 
         </tr>
-    <?php
+    ");
     }
 }
 class News extends DB
@@ -346,16 +346,16 @@ class News extends DB
     }
     public function add_form()
     {
-    ?>
+        $this->modal("
         <tr>
             <td>
                 最新消息資料:
             </td>
             <td>
-                <textarea name="text" style="width:400px;height:200px"></textarea>
+                <textarea name='text' style='width:400px;height:200px'></textarea>
             </td>
         </tr>
-    <?php
+    ");
     }
 }
 class Total extends DB
@@ -386,31 +386,31 @@ class Admin extends DB
     }
     public function add_form()
     {
-    ?>
-        <tr>
-            <td>
-                帳號:
-            </td>
-            <td>
-                <input type="text" name="acc">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                密碼:
-            </td>
-            <td>
-                <input type="password" name="pw">
-            </td>
-        </tr>
+    $this->modal("
+    <tr>
         <td>
-            確認密碼:
+            帳號:
         </td>
         <td>
-            <input type="password" name="pw2">
+            <input type='text' name='acc'>
         </td>
-        </tr>
-    <?php
+    </tr>
+    <tr>
+        <td>
+            密碼:
+        </td>
+        <td>
+            <input type='password' name='pw'>
+        </td>
+    </tr>
+    <td>
+        確認密碼:
+    </td>
+    <td>
+        <input type='password' name='pw2'>
+    </td>
+    </tr>
+");
     }
 }
 class Menu extends DB
@@ -424,24 +424,24 @@ class Menu extends DB
     }
     public function add_form()
     {
-    ?>
-        <tr>
-            <td>
-                主選單名稱:
-            </td>
-            <td>
-                <input type='text' name='text'>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                選單連結網址:
-            </td>
-            <td>
-                <input type='text' name='href'>
-            </td>
-        </tr>
-<?php
+    $this->modal("
+    <tr>
+        <td>
+            主選單名稱:
+        </td>
+        <td>
+            <input type='text' name='text'>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            選單連結網址:
+        </td>
+        <td>
+            <input type='text' name='href'>
+        </td>
+    </tr>
+");
     }
 }
 //在base.php中先宣告一個資料表的變數出來
