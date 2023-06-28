@@ -17,9 +17,9 @@
                                 ?>
                                 <tr>
                                 
-                                <td><input type="text" value="<?=$row['text']?>"></td>
-                                <td><input type="radio" name="sh[]" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
-                                <td><input type="checkbox" name="del[]" value="<?=$row['id'];?>"></td>
+                                <td><input type="text" name="text[<?=$row['id'];?>]" value="<?=$row['text']?>"></td>
+                                <td><input type="checkbox" name="sh[<?=$row['id'];?>]" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
+                                <td><input type="checkbox" name="del[<?=$row['id'];?>]" value="<?=$row['id'];?>"></td>
                                 
                                 </tr> 
                                 <?php

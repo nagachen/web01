@@ -19,7 +19,7 @@
                                 
                                 <td><input type="text" name="acc[<?=$row['id'];?>" value="<?=$row['acc']?>" style='width:95%'></td>
                                 <td><input type="password" name="pw[<?=$row['id'];?>]" value="<?=$row['pw'];?>" ></td>
-                                <td><input type="checkbox" name="del[]" value="<?=$row['id'];?>"></td>
+                                <td><input type="checkbox" name="del[<?=$row['id'];?>]" value="<?=$row['id'];?>"></td>
                                <td></td>
                                 </tr> 
                                 <?php

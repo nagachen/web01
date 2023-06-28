@@ -12,13 +12,15 @@ if(isset($_POST['text'])){
 }else{
     //取得img filename
     $rows=array_column($$db->all(),'img','id');
+   
 }
-
+dd($rows);
+echo "<hr>";
 foreach ($rows as $id => $text) {
     dd($id);
     if (!empty($_POST['del']) && in_array($id, $_POST['del'])) {
         $$db->del($id);
-       echo"212";
+       echo"del";
     } else {
         $row = $$db->find($id);
         switch($table){
@@ -29,6 +31,8 @@ foreach ($rows as $id => $text) {
             case 'admin':
             break;
             case 'menu':
+                $data['text']=$text;
+                $data['href']=$_POST['href'][$id];
             break;
             default:
             if(isset($_POST['text'])){
@@ -39,4 +43,4 @@ foreach ($rows as $id => $text) {
         $$db->save($row);
     }
 }
-//    to("../backend.php?do=$table");
+    // to("../backend.php?do=$table");
