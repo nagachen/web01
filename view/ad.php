@@ -8,12 +8,12 @@
             <td></td>
         </tr>
         <?php
-        $rows = $Ad->all();
+        $rows = $this->all();
         foreach ($rows as $row) {
         ?>
             <tr>
                 <td><input type="input" name="text[<?= $row['id']; ?>]" value="<?= $row['text']; ?>" style=width:95%></td>
-                <td> <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>"></td>
+                <td> <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?=($row['sh']==1)?'checked':'';?>></td>
                 <td> <input type="checkbox" name="del[]" value="<?= $row['id']; ?>"></td>
                 <td></td>
             </tr>
@@ -25,8 +25,8 @@
 <table style="margin-top:40px; width:70%;">
     <tbody>
         <tr>
-            <input type="hidden" name="table" value="ad">
-            <td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=ad')" value="新增動態文字廣告"></td>
+            <input type="hidden" name="table" value='<?=$this->table;?>'>
+            <td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=<?=$this->table;?>')" value="新增<?=$this->header;?>"></td>
             <td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
         </tr>
     </tbody>
