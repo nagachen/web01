@@ -28,7 +28,7 @@ class Menu extends DB
             <input type='text' name='href'>
         </td>
     </tr>
-");
+","./api/add.php");
     }
     public function list(){
         $this->backend("./view/menu.php");

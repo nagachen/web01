@@ -16,7 +16,7 @@ class Ad extends DB
         <td><?= $this->add_header; ?></td>
         <td><input type='text' name='text'></td>
     </tr>
-");
+","./api/add.php");
     }
     public function list(){
         $this->backend("./view/ad.php");

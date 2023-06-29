@@ -32,7 +32,7 @@
 							<tbody>
 								<tr>
 									<input type="hidden" name="table" value="<?=$this->table;?>">
-									<td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=<?=$this->table;?>')" value="新增<?=$this->header;?>"></td>
+									<td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=<?=$this->table;?>&id=<?=$row['id'];?>')" value="新增<?=$this->header;?>"></td>
 									<td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
 								</tr>
 							</tbody>

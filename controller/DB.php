@@ -21,12 +21,12 @@ class DB
     /**
      * 彈出視窗的共同模板
      */
-    public function modal($slot)
+    public function modal($slot,$action)
     {
 ?>
         <h3><?= $this->add_header; ?></h3>
         <hr>
-        <form action="./api/add.php" method="post" enctype="multipart/form-data">
+        <form action="<?=$action;?>" method="post" enctype="multipart/form-data">
             <table>
                 <?= $slot; ?>
                 <tr>

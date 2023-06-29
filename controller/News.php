@@ -21,7 +21,7 @@ class News extends DB
                 <textarea name='text' style='width:400px;height:200px'></textarea>
             </td>
         </tr>
-    ");
+    ","./api/add.php");
     }
     public function list(){
         $this->backend("./view/news.php");

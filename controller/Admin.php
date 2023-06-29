@@ -34,7 +34,7 @@ class Admin extends DB
         <input type='password' name='pw2'>
     </td>
     </tr>
-");
+","./api/add.php");
     }
     public function list(){
         $this->backend("./view/admin.php");
