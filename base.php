@@ -1,5 +1,16 @@
 <?php
 
+$BASEDIR=dirname(__FILE__);
+
+include_once $BASEDIR."/Controller/Ad.php";
+include_once $BASEDIR."/Controller/Admin.php";
+include_once $BASEDIR."/Controller/Bottom.php";
+include_once $BASEDIR."/Controller/Image.php";
+include_once $BASEDIR."/Controller/Menu.php";
+include_once $BASEDIR."/Controller/Mvim.php";
+include_once $BASEDIR."/Controller/News.php";
+include_once $BASEDIR."/Controller/Title.php";
+include_once $BASEDIR."/Controller/Total.php";
 
 
 /**
