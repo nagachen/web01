@@ -9,6 +9,8 @@ $table = $_POST['table'];
 $db = ucfirst($table);
 if(isset($_POST['text'])){
     $rows=$_POST['text'];
+}else if(isset($_POST['acc'])){
+    $rows=$_POST['acc'];
 }else{
     //取得img filename
     $rows=array_column($$db->all(),'img','id');
@@ -43,4 +45,4 @@ foreach ($rows as $id => $text) {
         $$db->save($row);
     }
 }
-    to("../backend.php?do=$table");
+     to("../backend.php?do=$table");

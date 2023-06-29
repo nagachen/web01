@@ -11,9 +11,10 @@ class Ad extends DB
     }
     public function add_form()
     {
+        
         $this->modal("
     <tr>
-        <td><?= $this->add_header; ?></td>
+        <td>$this->add_header</td>
         <td><input type='text' name='text'></td>
     </tr>
 ","./api/add.php");

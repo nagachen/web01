@@ -18,7 +18,7 @@
                                
                                 <td><input type="text" name="text[<?=$row['id'];?>]" value="<?=$row['text']?>" style="width:95%"></td>
                                 <td><input type="text" name="href[<?=$row['id'];?>]" value="<?=$row['href']?>" ></td>
-                                
+                                <td></td>
 								<td><input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
                                 <td><input type="checkbox" name="del[]" value="<?=$row['id'];?>"></td>
 								<td><button type="button">編輯次選單</button></td>
