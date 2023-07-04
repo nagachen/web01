@@ -31,7 +31,19 @@ class Menu extends DB
 ","./api/add.php");
     }
     public function list(){
-        $this->view("./view/menu.php");
+       
+        $rows=$this->all(['main_id'=>0]);
+        //  dd($rows);
+        // echo "<br><br><br><br><br><br><br><br><hr>";
+        foreach($rows as $idx=>$row){
+           
+            $row['subs']=$this->count(['main_id'=>$row['id']]);//計算每個主選單有多少次選單
+            
+            $rows[$idx]=$row;
+            
+        }
+        
+        $this->view("./view/menu.php" ,['rows'=>$rows]);
     }
 }
 ?>
