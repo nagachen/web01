@@ -5,12 +5,12 @@
 						<table width="100%">
 							<tbody>
 								<tr class="yel">
-									<td width="30%">主選單名稱</td>
-									<td width="30%">選單連結網址</td>
-									<td width="10%">次選單數</td>
+									<td width="25%">主選單名稱</td>
+									<td width="25%">選單連結網址</td>
+									<td width="15%">次選單數</td>
 									<td width="10%">顯示</td>
 									<td width="10%">刪除</td>
-									<td width="10%"></td>
+									<td></td>
 								</tr>
                                 <?php
                                     $rows=$this->all();
@@ -24,7 +24,8 @@
                                 <td></td>
 								<td><input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
                                 <td><input type="checkbox" name="del[]" value="<?=$row['id'];?>"></td>
-								<td><button type="button">編輯次選單</button></td>
+								<td><button type="button" onclick="op('#cover','#cvr','./modal/edit_submenu.php?main_id=<?=$row['id'];?>')">編輯次選單</button></td>
+
                                 </tr> 
                                 <?php
                                     }
@@ -35,7 +36,7 @@
 							<tbody>
 								<tr>
 								<input type="hidden" name="table" value="<?=$this->table;?>">
-									<td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=<?=$this->table;?>')" value="新增主<?=$this->header;?>"></td>
+								<td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/add_form.php?table=<?=$this->table;?>')" value="新增主<?=$this->header;?>"></td>
 									<td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
 								</tr>
 							</tbody>
