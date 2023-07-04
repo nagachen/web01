@@ -33,7 +33,7 @@ class Mvim extends DB
     ","./api/update_img.php");
     }
     public function list(){
-        $this->backend("./view/mvim.php");
+        $this->view("./view/mvim.php");
     }
 }
 ?>

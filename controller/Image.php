@@ -43,7 +43,7 @@ class Image extends DB
         
     }
     public function list(){
-        $this->backend("./view/image.php");
+        $this->view("./view/image.php");
     }
 }
 ?>

@@ -230,5 +230,8 @@ class DB
 
         return $this->pdo->query($sql)->fetchColumn();
     }
+    function view($path){
+        include $path;
+    }
 }
 ?>

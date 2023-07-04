@@ -37,7 +37,7 @@ class Admin extends DB
 ","./api/add.php");
     }
     public function list(){
-        $this->backend("./view/admin.php");
+        $this->view("./view/admin.php");
     }
 }
 ?>

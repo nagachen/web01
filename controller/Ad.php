@@ -20,7 +20,7 @@ class Ad extends DB
 ","./api/add.php");
     }
     public function list(){
-        $this->backend("./view/ad.php");
+        $this->view("./view/ad.php");
     }
 }
 ?>

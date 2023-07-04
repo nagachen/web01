@@ -32,7 +32,7 @@ class Title extends DB
                     ","./api/update_img.php");
     }
     public function list(){
-        $this->backend("./view/title.php");
+        $this->view("./view/title.php");
     }
 }
 ?>

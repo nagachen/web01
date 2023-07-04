@@ -31,7 +31,7 @@ class Menu extends DB
 ","./api/add.php");
     }
     public function list(){
-        $this->backend("./view/menu.php");
+        $this->view("./view/menu.php");
     }
 }
 ?>

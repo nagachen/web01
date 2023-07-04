@@ -24,7 +24,7 @@ class News extends DB
     ","./api/add.php");
     }
     public function list(){
-        $this->backend("./view/news.php");
+        $this->view("./view/news.php");
     }
 }
 ?>
