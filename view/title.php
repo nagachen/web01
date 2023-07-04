@@ -19,9 +19,9 @@
                                 ?>
                                 <tr>
                                 <td><img src="./upload/<?=$img;?>"style="width:300px; height:30px;"></td>
-                                <td><input type="text" name="text['id'];?>" value="<?=$text?>"></td>
+                                <td><input type="text" name="text[<?=$id;?>];?>" value="<?=$text?>"></td>
                                 <td><input type="radio" name="sh" value="<?=$id;?>" <?=($sh==1)?'checked':''?>></td>
-                                <td><input type="checkbox" name="del[]" value="<?=$id;?>"></td>
+                                <td><input type="checkbox" name="del[<?=$id;?>]" value="<?=$id;?>"></td>
                                 <td><input type="button" value="更新圖片"></td>
                                 </tr> 
                                 <?php

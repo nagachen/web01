@@ -4,10 +4,13 @@ class Title extends DB
 {
     public $header = '網站標題';
     protected $add_header = "新增標題區圖片";
-
+    public $title;
+    public $img;
     public function __construct()
     {
         parent::__construct('title');
+        $this->title=$this->find(["sh"=>1])['text'];
+        $this->img=$this->find(['sh'=>1])['img'];
     }
     public function add_form()
     {
