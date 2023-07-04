@@ -263,7 +263,8 @@ class DB
 
         return $this->pdo->query($sql)->fetchColumn();
     }
-    function view($path){
+    function view($path,$arg=[]){
+        extract($arg);//將陣列中的key=>value 變成 變數=值
         include $path;
     }
 }
