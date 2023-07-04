@@ -8,7 +8,40 @@ class DB
     protected $pdo;
     protected $add_header = '';
     protected $header = '';
+    protected $links;
 
+    function paginate($div,$arg=null){ //計算分頁
+        $total=$this->count($arg);//總筆數
+        $pages=ceil($total/$div);//共幾頁
+        $now=$_GET['page']??1;//現在第幾頁
+        $start=($now-1)*$div;//第幾頁開始
+        $rows=$this->all($arg,"limit $start,$div");//limit sql 語法
+        
+        $this->links=[//寫入links陣列
+            'total'=>$total,
+            'pages'=>$pages,
+            'now'=>$now,
+            'start'=>$start,
+        ];
+        return $rows;
+        
+    }
+
+    function links(){//制作 <  分頁數 >符號
+        if(($this->links['now']-1)>=1){
+            $prev=$this->links['now']-1;
+            echo "<a href='?do=$this->table&page=$prev'>&lt;</a>";
+        }
+
+        for($i=1;$i<=$this->links['pages'];$i++){
+            $fontsize=($i==$this->links['now'])?'24px':'16px';
+            echo "<a href='?do=$this->table&page=$i' style='font-size:$fontsize'> $i </a>";
+        }  
+        if(($this->links['now']+1)<=$this->links['pages']){
+            $next=$this->links['now']+1;
+            echo "<a href='?do=$this->table&page=$next'>&gt;</a>";
+        }
+    }
     /**
      * 建構式
      * 在實例化時，需要帶入一個資料表名稱，並會在實例化時，建立起對資料庫的連線
