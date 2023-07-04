@@ -11,5 +11,8 @@ class Bottom extends DB
     function list(){
         return $this->view("./view/bottom.php");
     }
+    function show(){
+        return $this->find(1)['bottom'];
+    }
 }
 ?>
