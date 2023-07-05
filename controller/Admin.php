@@ -39,5 +39,20 @@ class Admin extends DB
     public function list(){
         $this->view("./view/admin.php");
     }
+    function login($user){
+        if(!empty($user)){
+            $chk=$this->count(['acc'=>$user['acc'],
+                                'pw'=>$user['pw']]);
+            if($chk>0){
+                to('backend.php');
+            }else{
+                ?>
+                <script>
+                    alert("帳號密碼輸入錯誤");
+                <?php
+                
+            }
+        }
+    }
 }
 ?>
