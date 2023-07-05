@@ -34,5 +34,18 @@ class News extends DB
             echo "<a href='?do=news' style='float:right'>More...</a>";
         }
     }
+    function show(){
+        $rows=$this->all(['sh'=>1],' limit 5');
+        echo "<ol class='ssaa'>";
+        foreach($rows as $row){
+            echo "<li>";
+            echo mb_substr($row['text'],0,10);
+            echo "<span class='all' style='display:none'>";
+            echo $row['text'];
+            echo "</span>";
+            echo "</li>";
+        }
+        echo "</ol>";
+    }
 }
 ?>
