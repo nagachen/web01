@@ -40,17 +40,22 @@ class Admin extends DB
         $this->view("./view/admin.php");
     }
     function login($user){
+        
         if(!empty($user)){
             $chk=$this->count(['acc'=>$user['acc'],
                                 'pw'=>$user['pw']]);
+            
             if($chk>0){
+                $_SESSION['login']=$user['acc'];
                 to('backend.php');
+
             }else{
                 ?>
                 <script>
                     alert("帳號密碼輸入錯誤");
+                </script>
                 <?php
-                
+
             }
         }
     }

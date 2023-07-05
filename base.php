@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $BASEDIR=dirname(__FILE__);
 
 include_once $BASEDIR."/Controller/Ad.php";
