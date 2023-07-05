@@ -13,8 +13,8 @@ if(isset($_POST['text'])){
     $rows=$_POST['acc'];
 }else{
     //取得img filename
-    $rows=array_column($$db->all(),'img','id');
-   
+    $rows=$_POST['id'];
+  //換了一換分頁失效
 }
 dd($rows);
 echo "<hr>";
@@ -45,4 +45,4 @@ foreach ($rows as $id => $text) {
         $$db->save($row);
     }
 }
-     to("../backend.php?do=$table");
+    // to("../backend.php?do=$table");

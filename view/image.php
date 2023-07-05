@@ -28,7 +28,10 @@
 
                         <td> <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?= ($row['sh'] == 1) ? 'checked' : ''; ?>></td>
                         <td> <input type="checkbox" name="del[]" value="<?= $row['id']; ?>"></td>
-                        <td></td>
+                <input type="hidden" name="id[<?=$row['id'];?>]" value="<?= $row['id']; ?>">
+                        
+                        <td> <input type="button" value="更換圖片" 
+                        onclick="op('#cover','#cvr','./modal/update_img.php?table=<?=$this->table;?>&id=<?=$row['id'];?>')"></td>
                     </tr>
                 <?php
                 }
