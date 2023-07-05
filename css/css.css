@@ -167,3 +167,12 @@ input:focus,button:focus
 	top:-15px;
 	z-index:10;
 }
+.im{
+	text-align: center;
+	margin: 3px;
+}
+.im img{
+	width: 150px;
+	height: 103px;
+	border: 3px solid orange;
+}
