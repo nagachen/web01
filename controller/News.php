@@ -26,5 +26,13 @@ class News extends DB
     public function list(){
         $this->view("./view/news.php");
     }
+    public function num(){
+        return $this->count(['sh'=>1]);
+    }
+    function more(){
+        if($this->num()>5){
+            echo "<a href='?do=news' style='float:right'>More...</a>";
+        }
+    }
 }
 ?>

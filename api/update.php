@@ -45,4 +45,4 @@ foreach ($rows as $id => $text) {
         $$db->save($row);
     }
 }
-    // to("../backend.php?do=$table");
+  to("../backend.php?do=$table");
