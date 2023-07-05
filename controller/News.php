@@ -26,14 +26,26 @@ class News extends DB
     public function list(){
         $this->view("./view/news.php");
     }
+
+    /**
+     * 用來回傳被設定為顯示的資料筆數
+     */
     public function num(){
         return $this->count(['sh'=>1]);
     }
+
+     /**
+     * 用來判斷是否要顯示more連結的方法
+     */
     function more(){
         if($this->num()>5){
             echo "<a href='?do=news' style='float:right'>More...</a>";
         }
     }
+/**
+     * 前台頁面顯示用的方法
+     * 在這裏是顯示最多5筆最新消息資料
+     */
     function show(){
         $rows=$this->all(['sh'=>1],' limit 5');
         echo "<ol class='ssaa'>";
@@ -47,6 +59,11 @@ class News extends DB
         }
         echo "</ol>";
     }
+
+     /**
+     * 前台頁面顯示更多消息的方法
+     * 在這裏會同時使用分頁的功能，讓更多消息有分頁的功能在
+     */
     function moreNews(){
         $rows=$this->paginate(5,['sh'=>1]);
         $start=$this->links['start']+1;

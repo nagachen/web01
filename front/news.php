@@ -4,9 +4,11 @@
     <div style="height:32px; display:block;"></div>
     <!--正中央-->
     <?php
+     //顯示更多消息的列表
     $News->moreNews();
     ?>
     <div style="text-align:center;">
+    <!--顯示分頁連結-->
     <?=$News->links();?>
     </div>
 </div>

@@ -13,7 +13,7 @@
 		var lin = new Array();
 		<?php
 		
-		$Mvim->show();
+		$Mvim->show();//執行js的程式來將圖片加入到陣列lin中
 		?>
 		var now = 0;
 		if (lin.length > 1) {
@@ -33,10 +33,12 @@
 	
 	<div style="width:95%; padding:2px; height:190px; margin-top:10px; padding:5px 10px 5px 10px; border:#0C3 dashed 3px; position:relative;">
 		<span class="t botli">最新消息區
+		 <!--執行more()方法來決定是否要顯示More...字串-->
 		<?=$News->more();?>	
 	</span>
 		
 		<?php
+		//顯示前五筆最新消息
 			$News->show();
 		?>
 		<div id="altt" style="position: absolute; width: 350px; min-height: 100px; background-color: rgb(255, 255, 204); top: 50px; left: 130px; z-index: 99; display: none; padding: 5px; border: 3px double rgb(255, 153, 0); background-position: initial initial; background-repeat: initial initial;"></div>

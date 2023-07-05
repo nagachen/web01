@@ -11,6 +11,11 @@ class Bottom extends DB
     function list(){
         return $this->view("./view/bottom.php");
     }
+
+     /**
+     * 前台頁面顯示用的方法
+     * 在這裏是顯示唯一的頁尾版權文字資料
+     */
     function show(){
         return $this->find(1)['bottom'];
     }

@@ -45,6 +45,12 @@ class Menu extends DB
         
         $this->view("./view/menu.php" ,['rows'=>$rows]);
     }
+
+     /**
+     * 前台頁面顯示用的方法
+     * 在這裏是用來把主次選單撈出來
+     * 然後把次選單資料併到主選單的資料中
+     */
     public function show(){
         $rows=$this->all(['sh'=>1,'main_id'=>0]);
         foreach($rows as $idx =>$row){

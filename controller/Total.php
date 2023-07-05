@@ -11,6 +11,11 @@ class Total extends DB
     function list(){
         return $this->view("./view/total.php");
     }
+
+    /**
+     * 前台頁面顯示用的方法
+     * 在這裏是顯示目前的網站瀏灠人數
+     */
     function show(){
         return $this->find(1)['total'];
     }

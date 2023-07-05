@@ -10,6 +10,11 @@ class DB
     protected $header = '';
     protected $links;
 
+    /**
+     * 分頁功能，此函式主要在根據參數來回傳分頁的資料
+     * $div:每頁的資料數
+     * $arg:用在SQL語法中的指令字串或條件陣列
+     */
     function paginate($div,$arg=null){ //計算分頁
         $total=$this->count($arg);//總筆數
         $pages=ceil($total/$div);//共幾頁
@@ -27,16 +32,23 @@ class DB
         
     }
 
+    /**
+     * links()方法一定要在paginate()執行後才會有效果，
+     * 用途是在頁面上秀出分頁的連結
+     * 重要的參數是利用$this->links中的資料來計算各個連結的功能
+     */
     function links(){//制作 <  分頁數 >符號
+        //判斷是否還有前一頁，然後顯示前一頁的連結
         if(($this->links['now']-1)>=1){
             $prev=$this->links['now']-1;
             echo "<a href='?do=$this->table&page=$prev'>&lt;</a>";
         }
-
+//根據總頁數來顯示所有頁面的連結
         for($i=1;$i<=$this->links['pages'];$i++){
             $fontsize=($i==$this->links['now'])?'24px':'16px';
             echo "<a href='?do=$this->table&page=$i' style='font-size:$fontsize'> $i </a>";
         }  
+        //判斷是否還有下一頁，然後顯示下一頁的連結
         if(($this->links['now']+1)<=$this->links['pages']){
             $next=$this->links['now']+1;
             echo "<a href='?do=$this->table&page=$next'>&gt;</a>";
@@ -263,6 +275,11 @@ class DB
 
         return $this->pdo->query($sql)->fetchColumn();
     }
+
+     /**
+     * $path:要include進來的頁面檔案
+     * $arg:要在頁面檔案中使用的變數內容
+     */
     function view($path,$arg=[]){
          
         extract($arg);//將陣列中的key=>value 變成 變數=值
