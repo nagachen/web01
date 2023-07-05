@@ -47,5 +47,19 @@ class News extends DB
         }
         echo "</ol>";
     }
+    function moreNews(){
+        $rows=$this->paginate(5,['sh'=>1]);
+        $start=$this->links['start']+1;
+        echo "<ol class='ssaa' start='$start'>";
+        foreach($rows as $row){
+            echo "<li>";
+            echo mb_substr($row['text'],0,20);
+            echo "<span class='all' style='display:none'>";
+            echo $row['text'];
+            echo "</span>";
+            echo "</li>";
+        }
+        echo "</ol>";
+    }
 }
 ?>
