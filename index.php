@@ -110,7 +110,10 @@
 							if (x == 1 && nowpage - 1 >= 0) {
 								nowpage--;
 							}
-							if (x == 2 && (nowpage + 1) * 3 <= num * 1 + 3) {
+							// console.log("nowpage",nowpage);
+							// console.log("num",num);
+
+							if (x == 2 && nowpage  < num -3 ) {
 								nowpage++;
 							}
 							$(".im").hide()
