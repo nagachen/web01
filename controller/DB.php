@@ -182,7 +182,7 @@ class DB
             $sql = "insert into  $this->table (`" . join("`,`", $cols) . "`) 
                                       values('" . join("','", $arg) . "')";
         }
-        echo "$sql";
+        // echo "$sql";
         return $this->pdo->exec($sql);
     }
 
